@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb+srv://varunbharadwajmv:L3gB8cN3Tjfw0Utq@cluster0.1a1gh.mongodb.net/vrs_platform?retryWrites=true&w=majority";
+const MONGODB_URL = process.env.MONGODB_URL || "mongodb://localhost:27017/vrs-platform";
 
-if (!MONGODB_URI) {
+if (!MONGODB_URL) {
   throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local"
+    "Please define the MONGODB_URL environment variable inside .env.local"
   );
 }
 
@@ -29,7 +29,7 @@ async function dbConnect(): Promise<mongoose.Connection> {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+    cached.promise = mongoose.connect(MONGODB_URL, opts).then((mongoose) => {
       return mongoose.connection;
     });
   }
